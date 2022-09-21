@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Abs(num) {
+            if(num < 0) {
+                num *= -1
+            }
+
+            return num
+        }
+
+        console.log(Abs(-1))
+
+        function printConsole(func, count) {
+            for(let i = 0; i < count; i++) {
+                func()
+            }
+        }
+
+        function SayHello() {
+            console.log('안녕하세요')
+        }
+
+        printConsole(SayHello, 5)
+        printConsole(function() { console.log('ldj')}, 10)
+    </script>
+</body>
+</html>
