@@ -21,6 +21,17 @@
             }
         )()
 
+        
+
+        let randomColor = (
+            function() {
+                let color = ['red', 'green', 'blue', 'pink', 'purple', 'black', 'yellow', 'brown']
+                return function() {
+                    return color[nextRandomInteger(color.length - 1)]
+                }
+            }
+        )()
+
         function randomSpeed(maxSpeed) {
             return Math.random() * maxSpeed - Math.random() * maxSpeed
         }
@@ -35,7 +46,9 @@
             this.vy = randomSpeed(10)
             this.text = document.createElement('h1')
             this.text.innerText = randomAlphabet()
+            this.text.style.color = randomColor()
             this.text.style.position = 'fixed'
+
             document.body.appendChild(this.text)
         }
 
