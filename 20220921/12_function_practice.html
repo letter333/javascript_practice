@@ -101,7 +101,7 @@
                 }
                 for (let k = 0; k < 2 * i - 1; k++) {
                     let star = document.createElement('span')
-                    let num = Math.floor(Math.random() * 4)
+                    let num = Math.floor(Math.random() * color.length)
                     star.setAttribute('style', 'color:' + color[num])
                     star.innerHTML = '*'
                     document.body.appendChild(star)
@@ -118,7 +118,7 @@
                 }
                 for (let k = 0; k < 2 * i - 1; k++) {
                     let star = document.createElement('span')
-                    let num = Math.floor(Math.random() * 4)
+                    let num = Math.floor(Math.random() * color.length)
                     star.setAttribute('style', 'color:' + color[num])
                     star.innerHTML = '*'
                     document.body.appendChild(star)
