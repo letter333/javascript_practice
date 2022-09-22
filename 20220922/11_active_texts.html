@@ -12,6 +12,10 @@
             return Math.round(Math.random() * limit)
         }
 
+        function nextRandomInteger2(limit) {
+            return Math.random() * limit
+        }
+
         let randomAlphabet = (
             function() {
                 let alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -21,16 +25,32 @@
             }
         )()
 
-        
+        // let randomColor = (
+        //     function() {
+        //         let color = ['red', 'green', 'blue', 'pink', 'purple', 'black', 'yellow', 'brown']
+        //         return function() {
+        //             return color[nextRandomInteger(color.length - 1)]
+        //         }
+        //     }
+        // )()
 
-        let randomColor = (
+        let randomPicture = (
             function() {
-                let color = ['red', 'green', 'blue', 'pink', 'purple', 'black', 'yellow', 'brown']
+                let picture = ['earth.png', 'mars.png', 'moon.png', 'sun.png']
                 return function() {
-                    return color[nextRandomInteger(color.length - 1)]
+                    return picture[nextRandomInteger(picture.length - 1)]
                 }
             }
         )()
+
+        // let randomPicture = (
+        //     function() {
+        //         let picture = ['earth.png', 'mars.png', 'moon.png', 'sun.png']
+        //         return function() {
+        //             return picture[nextRandomInteger(picture.length - 1)]
+        //         }
+        //     }
+        // )()
 
         function randomSpeed(maxSpeed) {
             return Math.random() * maxSpeed - Math.random() * maxSpeed
@@ -46,7 +66,8 @@
             this.vy = randomSpeed(10)
             this.text = document.createElement('h1')
             this.text.innerText = randomAlphabet()
-            this.text.style.color = randomColor()
+            this.text.style.color = `rgba(${nextRandomInteger(255)}, ${nextRandomInteger(255)}, ${nextRandomInteger(255)}, ${nextRandomInteger2(1)})`
+            //this.text.src = randomPicture()
             this.text.style.position = 'fixed'
 
             document.body.appendChild(this.text)
