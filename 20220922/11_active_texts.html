@@ -43,15 +43,6 @@
             }
         )()
 
-        // let randomPicture = (
-        //     function() {
-        //         let picture = ['earth.png', 'mars.png', 'moon.png', 'sun.png']
-        //         return function() {
-        //             return picture[nextRandomInteger(picture.length - 1)]
-        //         }
-        //     }
-        // )()
-
         function randomSpeed(maxSpeed) {
             return Math.random() * maxSpeed - Math.random() * maxSpeed
         }
@@ -62,32 +53,45 @@
         function MovingText() {
             this.x = nextRandomInteger(canvasWidth)
             this.y = nextRandomInteger(canvasHeight)
+            this.imgX = nextRandomInteger(canvasWidth)
+            this.imgY = nextRandomInteger(canvasHeight)
             this.vx = randomSpeed(10)
             this.vy = randomSpeed(10)
+            this.imgVx = randomSpeed(10)
+            this.imgVy = randomSpeed(10)
             this.text = document.createElement('h1')
+            this.img = document.createElement('img')
             this.text.innerText = randomAlphabet()
             this.text.style.color = `rgba(${nextRandomInteger(255)}, ${nextRandomInteger(255)}, ${nextRandomInteger(255)}, ${nextRandomInteger2(1)})`
-            //this.text.src = randomPicture()
+            this.img.src = randomPicture()
             this.text.style.position = 'fixed'
+            this.img.style.position = 'fixed'
 
             document.body.appendChild(this.text)
+            document.body.appendChild(this.img)
         }
 
         MovingText.prototype.move = function() {
-            if(this.x < 0 || this.x > canvasWidth) {
+            if(this.x < 0 || this.x > canvasWidth || this.imgX < 0 || this.imgX > canvasWidth) {
                 this.vx *= -1
+                this.imgVx *= -1
             }
-            if(this.y < 0 || this.y > canvasHeight) {
+            if(this.y < 0 || this.y > canvasHeight || this.imgY < 0 || this.imgY > canvasHeight) {
                 this.vy *= -1
+                this.imgVy *= -1
             }
             this.x += this.vx
             this.y += this.vy
+            this.imgX += this.imgVx
+            this.imgY += this.imgVy
             this.text.style.left = this.x + 'px'
             this.text.style.top = this.y + 'px'
+            this.img.style.left = this.imgX + 'px'
+            this.img.style.top = this.imgY + 'px'
         }
 
         let movingTexts = []
-        for(let i = 0; i < 100; i++) {
+        for(let i = 0; i < 256; i++) {
             movingTexts.push(new MovingText())
         }
 
