@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="newText">
+    <button id="inputBtn">글자 추가</button>
+    <script>
+        function nextRandomInteger(limit) {
+            return Math.round(Math.random() * limit)
+        }
+
+        function nextRandomInteger2(limit) {
+            return Math.random() * limit
+        }
+
+        let texts='ABCDEFGHIJKLMNOPQRSTUVWXYZ가나다라마바사아자차카타파하あぁかさたなはまやゃらわがざだばぱ'
+        let newText = ''
+        let randomTexts = (
+            function() {
+                return function() {
+                    return texts[nextRandomInteger(texts.length - 1)]
+                }
+            }
+        )()
+
+        function randomSpeed(maxSpeed) {
+            return Math.random() * maxSpeed - Math.random() * maxSpeed
+        }
+
+        let canvasWidth = 700
+        let canvasHeight = 400
+
+        function MovingText(input) {
+            this.x = nextRandomInteger(canvasWidth)
+            this.y = nextRandomInteger(canvasHeight)
+            this.vx = randomSpeed(10)
+            this.vy = randomSpeed(10)
+            this.text = document.createElement('h1')
+            this.text.innerText = input
+            setInterval(() => {
+                this.text.style.color = `rgb(${nextRandomInteger(255)}, ${nextRandomInteger(255)}, ${nextRandomInteger(255)})`            
+            }, 200)
+            this.text.style.position = 'fixed'
+
+            document.body.appendChild(this.text)
+        }
+
+        MovingText.prototype.move = function() {
+            if(this.x < 0 || this.x > canvasWidth) {
+                this.vx *= -1
+            }
+            if(this.y < 0 || this.y > canvasHeight) {
+                this.vy *= -1
+            }
+            this.x += this.vx
+            this.y += this.vy
+            this.text.style.left = this.x + 'px'
+            this.text.style.top = this.y + 'px'
+        }
+
+        let movingTexts = []
+        for(let i = 0; i < 100; i++) {
+            movingTexts.push(new MovingText(randomTexts()))
+        }
+
+        let inputBtn = document.querySelector('#inputBtn')
+        
+        inputBtn.onclick = () => {
+            let inputNewText = document.querySelector('#newText').value
+            newText = inputNewText
+            movingTexts.push(new MovingText(newText))
+        }
+
+        
+        setInterval(function() {
+            for(let i in movingTexts) {
+                movingTexts[i].move()
+            }
+        }, 1000/30)
+
+        setInterval(() => {
+            document.body.style.backgroundColor = `rgb(${nextRandomInteger(255)}, ${nextRandomInteger(255)}, ${nextRandomInteger(255)})`
+        }, 1000)
+    </script>
+</body>
+</html>

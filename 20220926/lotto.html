@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="random">
+    <label for="random">
+        <button id="pickNum">뽑기</button>
+    </label>
+    <h1></h1>
+    <script>
+        let pickBtn = document.querySelector('#pickNum')
+        
+        let randomNum = []
+        let bonusNum
+        
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+        }
+
+        pickBtn.onclick = () => {
+            let startNum = document.querySelector('#random').value
+            if(startNum > 40 || startNum == '') {
+                document.querySelector('h1').innerHTML = '잘못된 입력, 1~40 사이의 값으로 입력 하기'
+                return
+            }
+            
+            for(let i = 0; i < 6; i++) {
+                let num = getRandomInt(startNum, 46)
+
+                for(let j in randomNum) {
+                    if(num == randomNum[j]) {
+                        num = getRandomInt(startNum, 46)
+                    }    
+                }
+                
+                randomNum.push(num)
+            }
+
+            randomNum.sort(function(a, b) {
+                return a - b
+            })
+            document.querySelector('h1').innerHTML = randomNum
+            
+
+            for(let j in randomNum) {
+                bonusNum = getRandomInt(startNum, 46)
+                if(bonusNum == randomNum[j]) {
+                    bonusNum = getRandomInt(startNum, 46)
+                }
+            }
+            document.querySelector('h1').innerHTML += '<br>보너스 : ' + bonusNum
+            
+            console.log(randomNum)
+            console.log(bonusNum)
+            randomNum.length = 0
+        }
+    </script>
+</body>
+</html>
