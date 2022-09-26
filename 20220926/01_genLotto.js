@@ -1,7 +1,7 @@
 function genLotto() {
     let lotto = []
 
-    for(let i = 0; i < 7; i++) {
+    for(let i = 0; i < 6; i++) {
         let num = Math.floor(Math.random() * 45) + 1
         let isDuplicate = false
         for(let j = 0; j < i; j++) {

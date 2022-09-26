@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="start">시작번호</label>
+    <input type="text" id="start">
+    <button>시작하기</button>
+    <h1></h1>
+    <script src="02_genLotto_start.js">
+
+    </script>
+    <script>
+        let startNum = document.querySelector('#start')
+        document.querySelector('button').onclick = () => {
+            if(startNum.value == '') {
+                alert('값을 입력해 주세요.')
+                return
+            }
+            if(isNaN(Number(startNum.value))) {
+                alert(startNum.value + '는 숫자가 아님')
+                return
+            }
+            if(Number(startNum.value) > 38) {
+                alert(startNum.value + '너무 큰 값')
+                return
+            }
+            lotto = genLotto(startNum.value)
+            
+            let bns = Math.floor(Math.random() * 45) + 1
+            while(lotto.indexOf(bns) != -1) {
+                bns = Math.floor(Math.random() * 45) + 1
+            }
+
+            document.querySelector('h1').textContent = lotto.toString() + '보너스 : ' + bns
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lorem, ipsum dolor.</h1>
+    <button>이벤트 추가</button>
+    <button>이벤트 제거</button>
+    <script>
+        let h1 = document.querySelector('h1')
+        let count = 0
+        const buttons = document.querySelectorAll('button')
+        const colorful = function() {
+            count++
+            h1.style.color = `rgb(${(count * 10) % 255}, 0, 0)`
+        }
+
+        buttons[0].addEventListener('click', colorful)
+
+        buttons[1].addEventListener('click', function() {
+            buttons[0].removeEventListener('click', colorful)
+        })
+    </script>
+</body>
+</html>
