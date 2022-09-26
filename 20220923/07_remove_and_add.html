@@ -16,7 +16,7 @@
     <label for="size" class="block">다이아 수</label>
     <input type="text" class="block" id="size">
     <button class="block" id="add">다이아 추가</button>
-    <button class="block" id="oneadd">다이아 무조건 하나만 추가</button>
+    <button class="block" id="oneAdd">다이아 무조건 하나만 추가</button>
     <br><br><br>
 <script>
     
@@ -65,13 +65,25 @@
     }
     }
 
-    drawDia(10)
+    // drawDia(10)
     
-    document.querySelector('button').onclick = () => {
+    document.querySelector('#remove').onclick = () => {
         document.querySelectorAll('span, br').forEach (
             (v) => {v.remove()}
         )
-    }    
+    }
+    
+    document.body.appendChild(document.createElement('br'))
+    
+    document.querySelector('#add').onclick = () => {
+        let size = document.querySelector('#size')
+        drawDia(Number(size.value))
+    }
+
+    document.querySelector('#oneAdd').onclick = () => {
+        document.querySelector('#remove').click()
+        document.querySelector('#add').click()
+    }
 </script>
 </body>
 </html>
