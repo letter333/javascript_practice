@@ -21,7 +21,7 @@ function genLotto() {
             if(lotto[j] > lotto[j + 1]) {
                 let temp = lotto[j]
                 lotto[j] = lotto[j + 1]
-                logtto[j + 1] = temp
+                lotto[j + 1] = temp
             }
         }
     }
