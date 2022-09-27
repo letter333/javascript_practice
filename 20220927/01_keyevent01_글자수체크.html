@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            background-color: pink;
+        }
+
+        .black {
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+    <h1></h1>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <script>
+        const myTextarea = document.querySelector('textarea')
+        const myH1 = document.querySelector('h1')
+        myTextarea.addEventListener('keyup', function() {
+            const myLength = myTextarea.value.length
+            if(myLength > 50) {
+                myH1.style.color = 'red'
+                myH1.setAttribute('class', 'red')
+            } else {
+                myH1.style.color = 'black'
+                myH1.setAttribute('class', 'black')
+            }
+            myH1.textContent = `글자수 : ${myLength}`
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            width: 30px;
+            height: 30px;
+            margin-left: 20px;
+            font-size: 20px;
+        }
+
+        #answer, #submit, #cancel {
+            width: 100px;
+            height: 50px;
+            font-style: 20px;
+        }
+
+        #input {
+            position: fixed;
+            top: 50px;
+            left: 150px;
+        }
+
+        #time {
+            position: fixed;
+            top: 50px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 60px;">
+        <h1 id="output" style="margin-left: 170px;"></h1>
+    </div>
+    <div>
+        <div style="margin-bottom: 20px;">
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+            <button class="choiceValue"></button>
+        </div>
+    </div>
+    <button id="cancel" style="margin-left: 20px;">취소</button>
+    <button id="submit" style="margin-left: 20px;">제출</button>
+    <div style="height: 60px;">
+        <h3 id="input" style="margin-left: 170px;"></h3>
+        <h5 id="time"></h5>
+    </div>
+    <button id="answer">
+        정답은?
+    </button>
+    <script>
+        let output = ''
+        let array = []
+        let input = 0
+
+        do {
+            input = Math.floor(Math.random() * 10)
+            const idx = array.indexOf(input)
+            if(idx ==  -1) {
+                array.push(input)
+                output += input
+            }
+        } while(array.length < 3)
+
+        let cancel = document.querySelector('#cancel')
+        let submit = document.querySelector('#submit')
+        let h1Output = document.getElementById('output')
+        let h3Input = document.getElementById('input')
+
+        let answer = document.getElementById('answer')
+        let time = document.querySelector('#time')
+        let count = 0
+        let timecount = 0
+
+        let timeCountInterval= setInterval(function() {
+            timecount++
+            time.innerText = timecount
+        }, 100)
+
+        let buttons = document.getElementsByClassName('choiceValue')
+
+        for(let i = 0; i < buttons.length; i++) {
+            buttons[i].textContent = i
+        }
+
+        for(let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function() {
+                if(h1Output.innerHTML.includes(i) == false) {
+                    if(h1Output.innerHTML.length < 3) {
+                        h1Output.innerHTML += i
+                    }
+                }
+            })
+        }
+
+        function shuffleNewNumber() {
+            for(let i = 0; i < buttons.length; i++) {
+                buttons[i].style.color = ''
+                buttons[i].disabled = false
+            }
+
+            array = []
+            input = 0
+            output = ''
+
+            do {
+                input = Math.floor(Math.random() * 10)
+                const idx = array.indexOf(input)
+                if(idx ==  -1) {
+                    array.push(input)
+                    output += input
+                }
+            } while(array.length < 3)
+        }
+
+        cancel.addEventListener('click', function() {
+            h1Output.innerHTML = ''
+            answer.innerHTML = '정답은?'
+        })
+
+        answer.addEventListener('click', function() {
+            this.innerHTML = '정답은 ' + output
+        })
+
+        
+        submit.addEventListener('click', function() {
+            if(h1Output.innerHTML.length != 3) {
+                alert('3글자를 입력하세요.')
+                return
+            }
+
+            count++
+            if(count < 9) {
+
+                if(output == h1Output.innerHTML) {
+                    count = 0
+                    alert('정답!')
+                    if(timecount < 100) {
+                        alert('천재')
+                    } else {
+                        alert('보통')
+                    }
+    
+                    h3Input.innerHTML = ''
+                    shuffleNewNumber()
+                    h1Output.innerHTML = ''
+                    answer.innerHTML = '정답은?' 
+                    timecount = 0
+                    clearInterval(timeCountInterval)
+                    timeCountInterval = setInterval(function() {
+                        timecount++
+                        time.innerHTML = timecount
+                    }, 100)
+                } else {
+                    let sCount = 0
+                    let bCount = 0
+                    let inputArr = h1Output.innerHTML
+                    for(let i = 0; i < output.length; i++) {
+                        if(output[i] == inputArr[i]) {
+                            sCount++
+                        } else if(inputArr.indexOf((Number)(output[i])) > -1) {
+                            bCount++
+                        }
+                    }
+                    if(sCount > 0 || bCount > 0) {
+                        document.querySelector('#input').innerHTML += (`[${inputArr}] ${sCount}S ${bCount}B ` + '<br>')
+                    } else {
+                        document.querySelector('#input').innerHTML += (`[${inputArr}] OUT` + '<br>')
+                    }
+
+                    if(count == 3 || count == 5 || count == 7 || count == 8) {
+                        let arr = [(Number)(output[0]), (Number)(output[1]), (Number)(output[2])]
+                        let randomIdx = Math.floor(Math.random() * buttons.length)
+                        
+                        for(let i = 0; i < arr.length; i++) {
+                            if(arr.indexOf(randomIdx) > -1 || buttons[randomIdx].style.color != '') {
+                                randomIdx = Math.floor(Math.random() * buttons.length)
+                                i = -1
+                            }
+                        }
+                        console.log(randomIdx)
+                        buttons[randomIdx].style.color = 'red'
+                        buttons[randomIdx].disabled = true
+                    }
+                }
+            } else {
+                count = 0
+                for(let i = 0; i < buttons.length; i++) {
+                    buttons[i].style.color = ''
+                }
+                alert(`틀렸습니다. 정답은 ${output}입니다.`)
+    
+                h3Input.innerHTML = ''
+                    shuffleNewNumber()
+                    h1Output.innerHTML = ''
+                    answer.innerHTML = '정답은?' 
+                    timecount = 0
+                    clearInterval(timeCountInterval)
+                    timeCountInterval = setInterval(function() {
+                        timecount++
+                        time.innerHTML = timecount
+                    }, 100)
+            }
+        })
+    </script>
+</body>
+</html>

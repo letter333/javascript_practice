@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const myNums = [10, 20, 30, 40, 50, 99, 101]
+        // 매개변수가 3개일때
+        // value: 각 요소의 값
+        // index : 각 요소의 인덱스
+        // arr : 그 배열 자체
+        myNums.forEach((v, i, a) => {
+            console.log('배열자체' + a)
+            console.log(`${i}번째 값 ${v}`)
+        })
+
+        // 매개변수 개수가 줄어들게 되면
+        // 그만큼 활용할 수 있는 것도 적어진다.
+        // 여기선 배열 자체는 활용 못하고 값과 인덱스만 활용 가능
+        myNums.forEach((v, i) => {
+            console.log(`${i}번째 값 ${v}`)
+        })
+        
+        // 배열 칸들 각각 안에 있는 값들만 활용이 가능
+        myNums.forEach((v) => {
+            console.log(`값 ${v}`)
+        })
+        
+        // map
+        // 배열에 있는 내용들을 재가공
+        // 배열에 있는 값들을 이용해서 새로운 배열을 만듦
+        const power_numbers = myNums.map(
+            (v) => v * v
+        )
+        for(const iterator of power_numbers) {
+            console.log(iterator)
+        }
+
+        // filter
+        // 내가 지정한 조건의 값만 가져오는 것
+        const odd_numbers = myNums.filter(
+            v => {return v % 2 == 1}
+        )
+
+        for (const iterator of odd_numbers) {
+            console.log(iterator)
+        }
+
+        // 복합적인 활용
+        myNums.filter(v => v % 2 == 1).map(v => v * v).forEach(
+            v => console.log(v)
+        )
+    </script>
+</body>
+</html>

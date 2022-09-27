@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let myArr = [1, 2, '삼', 4, () => { console.log(5) },
+    [11, 22, 33], { 이름 : '이동준', 나이 : 34, 성별 : '남'}]
+    myArr.push(function() {
+        console.log('Hello World')
+        alert('ㅎㅇ')
+    })
+
+    console.log(myArr.length)
+    for(let i of myArr) {
+        console.log(i)
+    }
+    myArr[100] = 1234
+    console.log('----------------')
+    myArr.splice(0, 1)
+    console.log('----------------')
+    myArr.splice(1, 3)
+    for(let i of myArr) {
+        console.log(i)
+    }
+
+    myArr.splice(10, 0, 5000) // splice 가운데에 0을 넣으면 추가 없으면 삭제
+    console.log(myArr)
+
+    myArr[3]()
+
+    const idx = myArr.indexOf(5000)
+    console.log('5000의 위치' + idx)
+    myArr.splice(idx, 1)
+
+    for(const iterator of myArr) {
+        console.log(iterator)
+    }
+    </script>
+</body>
+</html>
