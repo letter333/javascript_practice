@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jq.js"></script>
+</head>
+<body>
+    <h1>박스오피스 탑 10</h1>
+    <p>최신 영화</p>
+    <div class="boxOffice">
+        <h2 class="boxOfficeType"></h2>
+        <p class="showRange"></p>
+        <div class="boxOfficeList"></div>
+    </div>
+    <script>
+        $(function() {
+            const key = '4cc36d0ddecccee2d624c31a9de2224d'
+            const url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
+            const apiurl = `${url}?key=${key}&targetDt=20220927`
+            console.log(apiurl)
+
+            const boxOfficeType = $('.boxOfficeType')
+            const showRange = $('.showRange')
+            const myUl = $('.boxOfficeList')
+
+            $.ajax({
+                url: apiurl,
+                dataType : 'json',
+                success : function(result) {
+                    console.log(result)
+                    const jsonObj = result
+                    const boxOfficeResult = jsonObj['boxOfficeResult']
+                    const movieList = boxOfficeResult['dailyBoxOfficeList']
+
+                    boxOfficeType.text(boxOfficeResult['boxofficeType'])
+                    showRange.text(boxOfficeResult['showRange'])
+
+                    $(movieList).each(function(index, element) {
+                        const myLi = $('<li></li>')
+                        const myDiv = $('<div></div>')
+                        const myH2 = $('<h2></h2>')
+                        const myP1 = $('<p></p>')
+                        const myP2 = $('<p></p>')
+                        const myP3 = $('<p></p>')
+                        myH2.text(element['movieNm'])
+                        myP1.text('개봉일 : ' + element['openDt'])
+                        myP2.text('누적관객수 : ' + element['audiAcc'])
+                        myP2.text('순위 변동 : ' + element['rankInten'])
+
+                        myLi.append(myDiv)
+                        myDiv.append(myH2)
+                        myDiv.append(myP1)
+                        myDiv.append(myP2)
+                        myDiv.append(myP3)
+                        myUl.append(myLi)
+                    })
+                },
+                error: () => {
+                    console.log('error')
+                }
+            })
+        })
+    </script>
+</body>
+</html>

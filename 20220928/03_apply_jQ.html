@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jq.js"></script>
+    <style>
+        .myred {
+            border: 3px solid red;
+        }
+
+        .mycyan {
+            background-color: cyan;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="first">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique nihil odit iste praesentium pariatur voluptates, aliquid, facilis numquam quisquam soluta labore sunt consequatur tenetur velit eligendi laborum distinctio quod amet!</h1>
+    <h1 id="second">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quis rerum sint culpa, placeat non minima consequuntur perferendis cupiditate labore vel, amet voluptatum, similique obcaecati nam voluptatibus expedita totam dignissimos.</h1>
+
+    <script>
+        $('#first').css('color', 'red').addClass('myred')
+        let first = document.querySelector('#second')
+        first.setAttribute('class', 'myred')
+        first.style.color = 'blue'
+        first.className += ' mycyan'
+    </script>
+</body>
+</html>

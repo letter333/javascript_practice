@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jq.js"></script>
+    <script>
+        $(function() {
+            // $('h1:first').text('일')
+            // let myText = $('h1:first').text()
+            // console.log(myText)
+            let tryNum = prompt('주사위 굴릴 횟수')
+
+            let countArr = [0, 0, 0, 0, 0, 0]
+            for(let i = 0; i < tryNum; i++) {
+                let idx = Math.floor(Math.random() * 6)
+                countArr[idx]++
+            }
+
+            let maxIdx = 0
+            for(let i = 0; i < countArr.length; i++) {
+                if(countArr[maxIdx] < countArr[i]) {
+                    maxIdx = i
+                }
+            }
+            
+            for(let i = 0; i < countArr.length; i++) {
+                $('h1.a' + (i + 1)).text(countArr[i])
+            }
+
+            for(let i = 0; i < countArr.length; i++) {
+                if(i == maxIdx) {
+                    $('h1.a' + (i + 1)).css('color', 'hotpink')
+                    $('h2.a' + (i + 1)).css('color', 'hotpink')
+                }
+                $('h2.a' + (i + 1)).text((countArr[i] / tryNum * 100).toFixed(2) + '%')
+            }
+
+
+            
+
+
+        })
+    </script>
+</head>
+<body>
+    <h1>1</h1>
+    <h1 class="a1">0</h1>
+    <h2 class="a1">0</h1>
+    <h1>2</h1>
+    <h1 class="a2">0</h1>
+    <h2 class="a2">0</h1>
+    <h1>3</h1>
+    <h1 class="a3">0</h1>
+    <h2 class="a3">0</h1>
+    <h1>4</h1>
+    <h1 class="a4">0</h1>
+    <h2 class="a4">0</h1>
+    <h1>5</h1>
+    <h1 class="a5">0</h1>
+    <h2 class="a5">0</h1>
+    <h1>6</h1>
+    <h1 class="a6">0</h1>
+    <h2 class="a6">0</h1>
+</body>
+</html>
