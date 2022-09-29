@@ -5,6 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+          *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            text-align: center;
+            background: linear-gradient(#dec8f0, #90b7bd);
+        }
+        .boxOffice{
+            width: 500px;
+            margin: 20px auto;
+            padding: 5px;
+            border: 3px dotted #fff;
+            border-radius: 6px;
+
+        }
+        ul {
+            width: 100%;
+            padding: 8px;
+            list-style-position: inside;
+            text-align: left;
+            list-style-type: none;
+        }
+        ul li {
+            width: 92%;
+            margin: 5px 0;
+            background: rgb(189, 235, 212);
+            padding : 5px 10px;
+            cursor: pointer;
+        }
+        ul li:hover {
+            background: rgb(240, 232, 128);
+        }
+    </style>
     <script src="jq.js"></script>
 </head>
 <body>
@@ -13,11 +48,31 @@
     <div class="boxOffice">
         <h2 class="boxOfficeType"></h2>
         <p class="showRange"></p>
-        <div class="boxOfficeList"></div>
+        <ul class="boxOfficeList"></ul>
     </div>
     <script>
         $(function() {
             const key = '4cc36d0ddecccee2d624c31a9de2224d'
+            //어제 날짜 구하기(하루전 데이터를 가져온다)
+            let y = ( d => new Date(d.setDate(d.getDate() -1)))(new Date);
+            // y = y.getFullYear()+""+(y.getMonth()+1)+""+ y.getDate();
+            var month = y.getMonth();
+            //month의 특징
+            //현재가 1월이면 0을 준다.
+            //현재가 12월이면 11을 준다. 즉 현재 월보다 -1 한 숫자를 준다.
+            if(Number(month)<9) //현재가 1월부터 9월인 경우
+            {
+                month = '0'+(Number(month)+1);
+            }
+            var day = y.getDate();
+            if(Number(day)<9)
+            {
+                day = '0'+(Number(day)+1);
+
+            }
+            y = y.getFullYear()+""+month+""+ day;
+            console.log(y);
+            const date = y; //어제 날짜를 넣어 준다.
             const url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
             const apiurl = `${url}?key=${key}&targetDt=20220927`
             console.log(apiurl)
@@ -48,7 +103,7 @@
                         myH2.text(element['movieNm'])
                         myP1.text('개봉일 : ' + element['openDt'])
                         myP2.text('누적관객수 : ' + element['audiAcc'])
-                        myP2.text('순위 변동 : ' + element['rankInten'])
+                        myP3.text('순위 변동 : ' + element['rankInten'])
 
                         myLi.append(myDiv)
                         myDiv.append(myH2)
